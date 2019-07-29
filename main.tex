@@ -46,12 +46,11 @@ Memory allocators have been used in systems since the early 1960s with the buddy
 
 
 \section{Background}
-Place Holder
+The following section will explain the two main components that this paper focuses on, NVRAM and memory allocation. The following will not go into detail about the algorithms or tactics that the memory allocation in this paper will use, those details will be explained in further detail later on in this paper. 
 \subsection{Persistent Memory Non-Volatile Random Access Memory}
-Place Hold
-
+NVRAM is a new and emerging kind of persistent memory that acts very similarly to RAM but also has a few key differences. The major differences are that this form of memory allows for byte addressability and has a much faster write time than that of both Hard Disk Drives (HDD) and Solid-State Drives (SSD). This order of magnitude is also followed by similar read times as that of RAM. Continuing from this NVRAM has the ability for data being stored to have long term storage like that of HDD or SSD when a power cycle occurs. One of the main drawbacks of NVRAM is that the memory has a write endurance, meaning that if too many write occur in a given memory cell that memory cell can be destroyed and no longer used. Obviously when memory cells are destroyed more writes will occur over more memory cells causing the destruction of NVRAM to happen quickly. NVRAM is not going to be replacing RAM in this allocation tactic but will be used alongside RAM. By leveraging both technologies we hope to allow preservation of data as well as long term use of the NVRAM technology.
 \subsection{Memory Allocation}
-Place Hold
+A memory allocator is a program that is responsible for maintaining and distributing memory to be used by other programs. Part of the maintaining process is to make sure that all memory is distributed with the goal of locality as well as making sure that memory is returned to the operating system once the program no longer needs it. In this paper the main memory allocation tactic used is arena allocation, or the method of sectioning off large chunks of memory and then further distributing smaller sections of memory to be used by a program. By using this type of allocation, a second level of abstraction is added to the memory allocation and allows for arenas to maintain already allocated sections of memory while the allocator is able to distribute more arenas to a program. This allows for concurrency to flow in a program and can help stop bottle necks from occurring. This form of dynamic memory allocation is only one of many and used arenas in all of the data structures that will be listed here after. 
 
 
 \section{Related Work}
