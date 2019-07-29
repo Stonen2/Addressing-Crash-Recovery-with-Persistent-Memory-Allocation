@@ -94,10 +94,10 @@ The following section will describe the API that belongs with the allocator that
 This function call initializes the allocator and MUST be called before the allocator can be used. This function is responsible for starting and initializing all of the free lists as well as takes in two parameters. The parameters are the location (Void *) of the region that is to be mapped and the second parameter is the size that has been allocated and is allowed to be used by the program. By providing these two parameters an initialized arena allocator will then be able to adequately implement arenas without going over the size that can be allocated by the program. When MMAP is implemented in this arena then this function will also be responsible for calling MMAP and placing the region given into virtual memory. 
 \subsection{Destroy}
 Currently this function is a No-Op or that this function has no operations. However, when MMAP is implemented this function will be responsible for using the munmap function to return the memory back to the operating system. This function takes in no parameters. 
-\subsection{Get_mem}
+\subsection{Get mem}
 This function is responsible for doing most of the heavy lifting, namely this function is responsible for traversing the free lists and returning a location (Void*) to the programmer. This function will take in the size of an object that a programmer wants to allocate. Then it will pad this size and find the arena whose size is a factor of 64. If the list is currently empty, then the program will then create an arena of the new padded size. If a thread is already creating a new node then the allocator will search the next list with the next size above the padded size. Then the same steps if the list has space then allocate if not then we can create an arena. You will note that this kind of tactic is a lock free concurrency tactic. This will always yield a location that a programmer will get and allocate too. 
-\subsection{Return_mem}
-
+\subsection{Return mem}
+This function will take in a pointer to a location a (void*) this function will then return the arena that this void * belongs too. This algorithm is actually trivial, since each arena has a start address and an end address then the program will check if the location given lies between the start and end locations of a given arena. If this location is within these bounds, then it will return this arena since it belongs in this arena other wise it will search the next arena or the next free list.
 \section{Evaluation}
 Place Holder
 
@@ -114,10 +114,7 @@ It is important that experiments for all of the allocators that are tested, are 
 
 \section{Acknowledgment}
 
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
+I want to thank Lehigh University and the NSF for the opportunity to research memory allocation on the new and emerging technology NVRAM.  
 
 \section{References}
 
