@@ -55,7 +55,9 @@ Place Hold
 
 
 \section{Related Work}
-
+\subsection{HOARD}
+\subsection{MAKALU}
+\subsection {REWIND} 
 
 \section{Problems}
 As mentioned above the NVRAM has both pros and cons and while the pros can be used to increase performance in programs the cons can lead to devastating impacts in the long term for a program. For example, if the creation of an allocator that only leverages NVRAM technologies might have an immediate increase in runtimes the lifetime of the NVRAM will be minimal as well as current RAM allocating tactics will not utilize NVRAM to is full potential. New allocating tactics should be examined since locality of memory in for NVRAM is critical as well as using both RAM and NVRAM in order to make a reliable and fast allocator becomes the main goal. The biggest problem then becomes understanding which of the many allocating tactics would be most efficient on this new technology. 
@@ -70,10 +72,14 @@ Place Holder
 \section{Experiments}
 place Holder
 
-\section{Conclusions and Future Work}
-Place Holder
+\section{Future Work}
+The project currently provides a strong base and API that replicates and allows programmers to use an allocator that implements a form of smart allocating tactics. However, since NVRAM is a relatively new form of technology there are very few other kinds of NVRAM aware allocators. Thus, it would be unfair to compare speeds of NVRAM technologies against RAM technologies since as described above the technologies are different. From this future work on this project and allocator Is to implement at least two other kinds of allocators and compare these speeds against one another as well as RAM technologies. Along with these implementations the need for investigation in which concurrency tactic should be implemented. While ideally atomic operations should be utilized experiments of other kinds of concurrency tactics should be used in order to give programmers ideas of which method would be best for implementation of custom allocators. Mainly the goal of this second part is to share information of is the performance increase of atomic operations worth the time it takes to implement atomic allocations versus that of a spin lock allocation tactic. 
 
-\section*{Acknowledgment}
+\section{Future Experiments}
+
+\section{Conclusion}
+
+\section{Acknowledgment}
 
 The preferred spelling of the word ``acknowledgment'' in America is without 
 an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
