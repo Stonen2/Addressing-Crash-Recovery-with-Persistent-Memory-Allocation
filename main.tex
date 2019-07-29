@@ -76,8 +76,10 @@ place Holder
 The project currently provides a strong base and API that replicates and allows programmers to use an allocator that implements a form of smart allocating tactics. However, since NVRAM is a relatively new form of technology there are very few other kinds of NVRAM aware allocators. Thus, it would be unfair to compare speeds of NVRAM technologies against RAM technologies since as described above the technologies are different. From this future work on this project and allocator Is to implement at least two other kinds of allocators and compare these speeds against one another as well as RAM technologies. Along with these implementations the need for investigation in which concurrency tactic should be implemented. While ideally atomic operations should be utilized experiments of other kinds of concurrency tactics should be used in order to give programmers ideas of which method would be best for implementation of custom allocators. Mainly the goal of this second part is to share information of is the performance increase of atomic operations worth the time it takes to implement atomic allocations versus that of a spin lock allocation tactic. 
 
 \section{Future Experiments}
+It is important that experiments for all of the allocators that are tested, are executed on the basis of not only runtime performance but as well as concurrency and crash recovery. Namely that allocation times such as malloc and free should be tested but also the amount of time that each thread takes as well as the overall recovery time needs to be examined. That is if an arena allocator has poor free time, but recovery time is much faster that that of another form of dynamic memory allocation then use cases need to be examined before one type of allocator can be favored on NVRAM. Furthermore, the investigation of allocator data structures should also be examined, allowing a programmer to identify which type of data structure allows for fastest runtime. This means examining a free list tactic versus best fit tactic or a combination of both. 
 
 \section{Conclusion}
+
 
 \section{Acknowledgment}
 
@@ -86,7 +88,7 @@ an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B.
 G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
 acknowledgments in the unnumbered footnote on the first page.
 
-\section*{References}
+\section{References}
 
 Please number citations consecutively within brackets \cite{IEEEhowto:IEEEtranpage}. The 
 sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
