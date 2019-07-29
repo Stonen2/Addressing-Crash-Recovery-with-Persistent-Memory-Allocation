@@ -64,6 +64,11 @@ As mentioned above the NVRAM has both pros and cons and while the pros can be us
 Before undertaking this project, I had done minimal systems work and even less work pertaining to memory allocators and changing the way that memory is allocated in a program beyond New and delete. The first of the many implementation problems that occurred was understanding the data structures and how they work together to achieve an efficient means to allocate memory. The implementation problem then occurred with linking the idea of an arena and how each arena needs to store a data structure or bit map to be able to track which parts of the memory have been allocated. The next implementation obstacle was building data structures and the level of abstraction for arena’s that allow for strong locality. Meaning that all of the data is being stored in or near one another. The last implementation problem that I will highlight in this paper is understanding which memory preservation tactic would work best and most efficient at the same time. With the instruction of placement new it became difficult to write reliable algorithms using placement new without overwriting nodes that are still in use.  
 \section{Implementation Solutions}
 In systems the greatest implementation solution that I have found to help solve all of my problems is to start with a picture. Meaning that when implementation problems occurred such as not fully understanding how the bitmap would interact with the arena data structures once a picture was drawn further ideas and tactics could be understood and then implemented. Not all of the ideas that are gathered from a picture work or are efficient, but it was a clear way of understanding the data structures. As for allocation tactics that would be used to reclaim memory with instructions such as placement new the tactic of free was to be changed to understand how much the free function will impact performance. Namely this meaning that free would not free any memory back to the OS but would reset an arena back to be completely cleared of all data and was ready to be used by the program. 
+\section{Visualization of Data-Structure} 
+\subsection{Iteration 1} 
+\subsection{Iteration 2} 
+
+
 
 \section{Evaluation}
 Place Holder
