@@ -77,17 +77,22 @@ The first iteration focuses mainly on making and connecting the bitmap data stru
 \includegraphics[width=8cm]{Iteration2datastructure.jpg}
 \caption{Second Iteration of the Arena Data Structure}
 \label{fig2:Iteration2}
+The second iteration aimed to fix the locality problem that the first iteration experienced. By putting the bitmap inside the arena, we have increased the locality of each given arena allowing for easier recovery and allocation tactics. The key thing in this iteration is that there is still only one list, and this can form a bottle neck when it comes to concurrency. The same allocation tactic is used in both iteration 1 and iteration 2 and was described in iteration 1. 
+
+
 
 \subsection{Iteration 3}
 \includegraphics[width=8cm]{Iteration3datastructure.jpg}
 \caption{Third Iteration of the Arena Data Structure}
 \label{fig3:Iteration3}
+From the figure listed you can see that the locality improvement from iteration 2 is preserved as well as multiple free lists have been implemented. This is largely due to a critical change in the allocation tactic, the rest of this paragraph aims to explain the new allocation tactic. The allocator will take in a given size that needs to be allocated by the program. The program then rounds that number up to a preset value, usually a factor of 64. Once this has been rounded the allocator will then search the list that contains all arenas with the value of the new rounded size. If that list is empty then a new arena will be created and added to the list, however if a new node is already being created then the program will allocate memory from a arena from the next list whose size is greater than that of the padded value. Once a value get above 4096 or above 1 page then the list contains all arenas whose value is greater than 4096. 
+
 
 \section{API}
 \subsection{}
 \subsection{}
 \subsection{}
-subsection{}
+\subsection{}
 
 \section{Evaluation}
 Place Holder
