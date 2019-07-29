@@ -70,7 +70,7 @@ As discussed previously in this paper the goal of the NVRAM allocator is to make
 \includegraphics[width=14cm]{iteration1datastructure.jpg}
 \caption{First Iteration of the Arena Data Structure}
 \label{fig1:Iteration1}
-\\
+The first iteration focuses mainly on making and connecting the bitmap data structure to map to an overall section of memory. This meaning that one bit in the bitmap correlates to a number of bits and that when the bit is 0 then the memory can be allocated and if the bit is 1 then the memory is already allocated. This then allows for a single list for the program to iterate through and check each bit map for an opening to allocate memory from. This meaning that threads could all loop through this one list and then check each arena if there is room to be allocated. Two main lessons were learned in this iteration, that concurrency suffers when only one free list is used. The second lesson is the locality of this data structure is very weak. That is that the array may not always be close in memory to the given arena that the bit map belongs too. 
 
 
 \subsection{Iteration 2} 
@@ -83,7 +83,11 @@ As discussed previously in this paper the goal of the NVRAM allocator is to make
 \caption{Third Iteration of the Arena Data Structure}
 \label{fig3:Iteration3}
 
-
+\section{API}
+\subsection{}
+\subsection{}
+\subsection{}
+subsection{}
 
 \section{Evaluation}
 Place Holder
