@@ -118,6 +118,9 @@ The following section will show the results of a series of tests run against the
  The Following Tables Persistent Allocation is 10^-4 Seconds and Hoard is 10^-6
 
 
+\includegraphics[width=8cm]{llllllllll.png}
+\caption{Runtime results for Test 1 In Terms of Seconds * 10^-7}
+\label{fig4:Test 1}
 
 \begin{tabular}{ |p{1cm}||p{3cm}|p{3cm}|  }
  \hline
@@ -134,7 +137,13 @@ The following section will show the results of a series of tests run against the
 \end{tabular}
  The Following Tables Persistent Allocation is 10^-5 Seconds and Hoard is 10^-7
 
+
+\includegraphics[width=8cm]{lll.png}
+\caption{Runtime results for Test 2 In Terms of Seconds * 10^-7}
+\label{fig4:Test 1}
 \\
+
+
 As described in other sections of this paper the reason for such a drastic performance increase starts in the overall design of our data structure. This meaning that while locality could explain a minor decrease in performance the major reason for such a slow down is in the amount of memory that each arena is allocating in our memory allocator. Recall that iteration 1 of our allocator started by making sure each node in the list that was created was twice the size of the previous Arena and that the starting Arena size is 64 bytes. Furthermore, before another arena is to be allocated it must traverse the entire byte length of the arena before it. When string sizes are allocated there is a lot of wasted cycles and time being spent searching nodes that are completely full or have no room for allocating such sizes. Continuing from this there was no implementation for remember where the next best fit would be in each of the given arenas. Overall while the experiments run was trivial it still allows us some key insights in the flaws of our memory allocators but also in possible tactics to implement in the future. 
 \section{Future Work}
 The project currently provides a strong base and API that replicates and allows programmers to use an allocator that implements a form of smart allocating tactics. However, since NVRAM is a relatively new form of technology there are very few other kinds of NVRAM aware allocators. Thus, it would be unfair to compare speeds of NVRAM technologies against RAM technologies since as described above the technologies are different. From this future work on this project and allocator Is to implement at least two other kinds of allocators and compare these speeds against one another as well as RAM technologies. Along with these implementations the need for investigation in which concurrency tactic should be implemented. While ideally atomic operations should be utilized experiments of other kinds of concurrency tactics should be used in order to give programmers ideas of which method would be best for implementation of custom allocators. Mainly the goal of this second part is to share information of is the performance increase of atomic operations worth the time it takes to implement atomic allocations versus that of a spin lock allocation tactic. 
