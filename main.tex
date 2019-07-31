@@ -34,7 +34,7 @@ HDD,SSD,allocator,NVRAM,Persistent Memory
 \section{Introduction}
 Non-Volatile Random-Access Memory (NVRAM) is a new kind of persistent memory that has a few unique characteristics that are different than that of Random-Access Memory (RAM).  The first is that this new form of technology allows for byte addressable long-term storage means that operate and execute several orders of magnitude faster than that of both Hard Disk Drives (HDD) and Solid-State Drives (SSD). Another unique factor of NVRAM is that this form of technology has a limited number of writes before the memory cells becomes unusable. If a program is not implemented properly or poorly the program can destroy memory cells rapidly thus damaging the technology and rendering it more expensive to use than typical RAM. One of the underlying tools that a programmer does not need to worry about usually is the allocator that a program is running or using.  Meaning that if a programmer was to write a program that was constantly writing to the same memory cells this could lead to a short life span of the NVRAM technology. It then becomes critical the smart memory allocations and tactical memory writes is used to leverage the NVRAM technology to be most effective. 
 \\
-Memory allocators have been used in systems since the early 1960s with the buddy memory allocation being implemented and used in 1963. As described above NVRAM has some unique properties that will enhance the runtime and performance of programs. However, if the same memory allocators that are used for RAM are used for NVRAM a large performance increase might not be experienced since these tactics are designed to run efficiently on RAM. The Memory allocating tactics that are used in this paper and program inherit some of the same or similar tactics to those that run on RAM but have a few unique characteristics that make them different. The first is that while locality is important for RAM technologies locality is critical for NVRAM technologies. Since NVRAM allows for data to persist even when a power cycle happens this means that any data in memory will be preserved on start up. Thus, allowing for a second program or an allocator to go through and find and restore all data that a program would have been using before a power cycle.  If a program can execute a systematic approach to memory allocation, then a simple algorithm can be implemented to then restore data in a quick and efficient manner. The second thing is that custom memory allocators may become more beneficial on NVRAM technologies than that of RAM \cite{berger-oopsla-2002}. This is due to the fact that NVRAM could be leveraged in a variety of ways by many different systems, meaning that a DMBS might use NVRAM to hold ‘Hot’ Tuples while a Cloud system might use allocation tactics differently.  The following memory allocator aims to see what kind of allocation tactics yields the best performance for programs while utilizing both RAM and NVRAM technologies. 
+Memory allocators have been used in systems since the early 1960s with the buddy memory allocation being implemented and used in 1963. As described above NVRAM has some unique properties that will enhance the runtime and performance of programs. However, if the same memory allocators that are used for RAM are used for NVRAM a large performance increase might not be experienced since these tactics are designed to run efficiently on RAM. The Memory allocating tactics that are used in this paper and program inherit some of the same or similar tactics to those that run on RAM but have a few unique characteristics that make them different. The first is that while locality is important for RAM technologies locality is critical for NVRAM technologies. Since NVRAM allows for data to persist even when a power cycle happens this means that any data in memory will be preserved on start up. Thus, allowing for a second program or an allocator to go through and find and restore all data that a program would have been using before a power cycle.  If a program can execute a systematic approach to memory allocation, then a simple algorithm can be implemented to then restore data in a quick and efficient manner. The second thing is that custom memory allocators may become more beneficial on NVRAM technologies than that of RAM \cite{berger-oopsla-2002 \cite{berger-oopsla-2009}}. This is due to the fact that NVRAM could be leveraged in a variety of ways by many different systems, meaning that a DMBS might use NVRAM to hold ‘Hot’ Tuples while a Cloud system might use allocation tactics differently.  The following memory allocator aims to see what kind of allocation tactics yields the best performance for programs while utilizing both RAM and NVRAM technologies. 
 
 
 \section{Background}
@@ -218,45 +218,15 @@ Moving forward, this project is going to be focusing mainly on allocation tactic
 
 I want to thank Lehigh University and the NSF for the opportunity to research memory allocation on the new and emerging technology NVRAM.  
 
-\section{References}
 
-Please number citations consecutively within brackets \cite{IEEEhowto:IEEEtranpage}. The 
-sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
 
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
-abstract or reference list. Use letters for table footnotes.
-
-Unless there are six authors or more give all authors' names; do not use 
-``et al.''. Papers that have not been published, even if they have been 
-submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
-element symbols.
-
-For papers published in translation journals, please give the English 
-citation first, followed by the original foreign-language citation \cite{b6}.
 
 \bibliographystyle{./bibliography/IEEEtran}
-\bibliography{./bibliography/IEEEabrv,./bibliography/IEEEexample}
+\bibliography{g.bib}
 
 \vspace{12pt}
 
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
 
-https://people.cs.umass.edu/~emery/pubs/berger-oopsla2002.pdf
-
-https://people.cs.umass.edu/~emery/pubs/berger-oopsla2002.pdf
-
-http://www.vldb.org/pvldb/vol8/p497-chatzistergiou.pdf
-
-https://link.springer.com/chapter/10.1007/978-3-662-53426-7_23
-
-https://dl.acm.org/citation.cfm?id=3054780
-
-https://dl.acm.org/citation.cfm?id=2984019
 
 
 
