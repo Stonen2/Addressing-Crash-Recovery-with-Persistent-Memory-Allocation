@@ -117,11 +117,20 @@ The following section will show the results of a series of tests run against the
  \hline
 \end{tabular}
  The Following Tables Persistent Allocation is 10^-4 Seconds and Hoard is 10^-6
+\\
 
+\\
+\\
+\\
+
+\\
 
 \includegraphics[width=8cm]{llllllllll.png}
-\caption{Runtime results for Test 1 In Terms of Seconds * 10^-7}
+\caption{Runtime results for Test 2 In Terms of Seconds * 10^-7}
 \label{fig4:Test 1}
+\\
+\\
+
 
 \begin{tabular}{ |p{1cm}||p{3cm}|p{3cm}|  }
  \hline
@@ -137,13 +146,66 @@ The following section will show the results of a series of tests run against the
  \hline
 \end{tabular}
  The Following Tables Persistent Allocation is 10^-5 Seconds and Hoard is 10^-7
+\\
+\\
 
+\\
 
 \includegraphics[width=8cm]{lll.png}
 \caption{Runtime results for Test 2 In Terms of Seconds * 10^-7}
-\label{fig4:Test 1}
+\label{fig5:Test 2}
 \\
 
+\\
+Further optimizations were implemented in iteration 1 in order to re-run test and improve latency performance
+\\
+\\
+
+\begin{tabular}{ |p{1cm}||p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{3}{|c|}{Test 1 Optimization has Occurred} \\
+ \hline
+ & Persistent Allocator & Hoard \\
+ \hline
+ Run 1   &1.787    & 3.7682\\
+ Run 2& 1.79267    &   4.8371  \\
+ Run 3 &1.7953 &  3.7466 \\
+ Run 4&1.787834& 4.2558\\
+ Run 5& 1.794834  & 3.8146\\
+ \hline
+\end{tabular}
+ The Following Tables Persistent Allocation is 10^-5 Seconds and Hoard is 10^-6\\
+ 
+ \\
+ \includegraphics[width=8cm]{Hoardgraph1.png}
+\caption{Runtime results for Test 1 In Terms of Seconds * 10^-6 Optimized}
+\label{fig6:Test 1 Optimized}
+\\
+ 
+
+\begin{tabular}{ |p{1cm}||p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{3}{|c|}{Test 2 Optimization has Occurred} \\
+ \hline
+ & Persistent Allocator & Hoard \\
+ \hline
+ Run 1   &4.2186    & 4.33\\
+ Run 2& 4.2324    &  4.588  \\
+ Run 3 &4.155 &  4.403 \\
+ Run 4&4.1953& 4.566\\
+ Run 5& 4.2827  & 4.279\\
+ \hline
+\end{tabular}
+ The Following Tables Persistent Allocation is 10^-6 Seconds and Hoard is 10^-7\\
+
+ \\
+ \includegraphics[width=8cm]{HoardGraph2.png}
+\caption{Runtime results for Test 2 In Terms of Seconds * 10^-7 Optimized}
+\label{fig7:Test 2 Optimized}
+\\
+ 
+
+\newline
 
 As described in other sections of this paper the reason for such a drastic performance increase starts in the overall design of our data structure. This meaning that while locality could explain a minor decrease in performance the major reason for such a slow down is in the amount of memory that each arena is allocating in our memory allocator. Recall that iteration 1 of our allocator started by making sure each node in the list that was created was twice the size of the previous Arena and that the starting Arena size is 64 bytes. Furthermore, before another arena is to be allocated it must traverse the entire byte length of the arena before it. When string sizes are allocated there is a lot of wasted cycles and time being spent searching nodes that are completely full or have no room for allocating such sizes. Continuing from this there was no implementation for remember where the next best fit would be in each of the given arenas. Overall while the experiments run was trivial it still allows us some key insights in the flaws of our memory allocators but also in possible tactics to implement in the future. 
 \section{Future Work}
