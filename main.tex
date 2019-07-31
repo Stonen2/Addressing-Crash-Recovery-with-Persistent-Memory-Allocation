@@ -19,16 +19,6 @@
 \IEEEauthorblockA{\textit{Xavier University} \\
 Cincinnati Ohio, USA \\
 Stonen2@Xavier.edu}
-\and
-\IEEEauthorblockN{\textsuperscript{} Michael Spear}
-\IEEEauthorblockA{\textit{Lehigh University} \\
-\textit{Bethlehem Pennsylvania, USA}\\
-spear@lehigh.edu}
-\and
-\IEEEauthorblockN{\textsuperscript{} Roberto Palmieri}
-\IEEEauthorblockA{\textit{Lehigh University} \\
-\textit{Bethlehem Pennsylvania, USA}\\
-palmieri@lehigh.edu}
 
 }
 \maketitle
@@ -57,13 +47,6 @@ A memory allocator is a program that is responsible for maintaining and distribu
 
 \section{Related Work}
 While Persistent memory is a new and emerging technology the following related works that will be listed here after all pertain to persistent memory or memory allocation. While each of the papers uses and performs different kinds of memory allocation tactics it is important to highlight that these papers all use different approaches. The first related work we highlight is going to be Hoard which is a scalable memory allocator for multithreaded applications. It is important that we highlight that Hoard was able to accomplish four very important aspects if memory allocator performance. These four aspects are scalable, speed, false sharing avoidance, low fragmentation. It is important to note that the allocator that we are building is going to aim to achieve all of the following things however some of these things may suffer since we are building it for persistent memory. A second related work is Makalu a fast-recoverable allocation for non-volatile memory. It is important to note that once again this paper was able to highlight four very important aspects of fast recovery. These four things are failure induced inconsistencies, Transient versus persistent meta data, online failure consistency overhead vs recovery, and safe deallocation. Amongst these tactics we will focus mainly on safe deallocation tactics to be used by NVRAM. The last related work that we are going to highlight is going to be How to Build a Non-Volatile memory database management system. While this related work is rather short it does give an insight into some of the tactics that could be used if one was going to build a DBMS on top of NVRAM technologies. The main goal being how to utilize the technology to take in as few number of writes as possible while executing large amount of reads on the technology. This is done through placing ‘Hot’ Tuple in the NVRAM technology. 
-
-\section{Problems}
-As mentioned above the NVRAM has both pros and cons and while the pros can be used to increase performance in programs the cons can lead to devastating impacts in the long term for a program. For example, if the creation of an allocator that only leverages NVRAM technologies might have an immediate increase in runtimes the lifetime of the NVRAM will be minimal as well as current RAM allocating tactics will not utilize NVRAM to is full potential. New allocating tactics should be examined since locality of memory in for NVRAM is critical as well as using both RAM and NVRAM in order to make a reliable and fast allocator becomes the main goal. The biggest problem then becomes understanding which of the many allocating tactics would be most efficient on this new technology. 
-\section{Implementation Problems}
-Before undertaking this project, I had done minimal systems work and even less work pertaining to memory allocators and changing the way that memory is allocated in a program beyond New and delete. The first of the many implementation problems that occurred was understanding the data structures and how they work together to achieve an efficient means to allocate memory. The implementation problem then occurred with linking the idea of an arena and how each arena needs to store a data structure or bit map to be able to track which parts of the memory have been allocated. The next implementation obstacle was building data structures and the level of abstraction for arena’s that allow for strong locality. Meaning that all of the data is being stored in or near one another. The last implementation problem that I will highlight in this paper is understanding which memory preservation tactic would work best and most efficient at the same time. With the instruction of placement new it became difficult to write reliable algorithms using placement new without overwriting nodes that are still in use.  
-\section{Implementation Solutions}
-In systems the greatest implementation solution that I have found to help solve all of my problems is to start with a picture. Meaning that when implementation problems occurred such as not fully understanding how the bitmap would interact with the arena data structures once a picture was drawn further ideas and tactics could be understood and then implemented. Not all of the ideas that are gathered from a picture work or are efficient, but it was a clear way of understanding the data structures. As for allocation tactics that would be used to reclaim memory with instructions such as placement new the tactic of free was to be changed to understand how much the free function will impact performance. Namely this meaning that free would not free any memory back to the OS but would reset an arena back to be completely cleared of all data and was ready to be used by the program. 
 \section{Visualization of Data-Structure} 
 As discussed previously in this paper the goal of the NVRAM allocator is to make sure that locality is key, or the goal is making sure all data structures are placed in memory in some form of sequential chain. This allows a program to very quickly traverse the data structures and then allocate memory to the programmer. Here after will show the transformation in the data structure and show the improvement in locality as well as use of the free list algorithm. 
 \subsection{Iteration 1}
@@ -86,6 +69,17 @@ The second iteration aimed to fix the locality problem that the first iteration 
 \caption{Third Iteration of the Arena Data Structure}
 \label{fig3:Iteration3}
 From the figure listed you can see that the locality improvement from iteration 2 is preserved as well as multiple free lists have been implemented. This is largely due to a critical change in the allocation tactic, the rest of this paragraph aims to explain the new allocation tactic. The allocator will take in a given size that needs to be allocated by the program. The program then rounds that number up to a preset value, usually a factor of 64. Once this has been rounded the allocator will then search the list that contains all arenas with the value of the new rounded size. If that list is empty then a new arena will be created and added to the list, however if a new node is already being created then the program will allocate memory from a arena from the next list whose size is greater than that of the padded value. Once a value get above 4096 or above 1 page then the list contains all arenas whose value is greater than 4096. 
+
+\subsection{Algorithmss Explained}
+
+
+\section{Problems}
+As mentioned above the NVRAM has both pros and cons and while the pros can be used to increase performance in programs the cons can lead to devastating impacts in the long term for a program. For example, if the creation of an allocator that only leverages NVRAM technologies might have an immediate increase in runtimes the lifetime of the NVRAM will be minimal as well as current RAM allocating tactics will not utilize NVRAM to is full potential. New allocating tactics should be examined since locality of memory in for NVRAM is critical as well as using both RAM and NVRAM in order to make a reliable and fast allocator becomes the main goal. The biggest problem then becomes understanding which of the many allocating tactics would be most efficient on this new technology. 
+\section{Implementation Problems}
+Before undertaking this project, I had done minimal systems work and even less work pertaining to memory allocators and changing the way that memory is allocated in a program beyond New and delete. The first of the many implementation problems that occurred was understanding the data structures and how they work together to achieve an efficient means to allocate memory. The implementation problem then occurred with linking the idea of an arena and how each arena needs to store a data structure or bit map to be able to track which parts of the memory have been allocated. The next implementation obstacle was building data structures and the level of abstraction for arena’s that allow for strong locality. Meaning that all of the data is being stored in or near one another. The last implementation problem that I will highlight in this paper is understanding which memory preservation tactic would work best and most efficient at the same time. With the instruction of placement new it became difficult to write reliable algorithms using placement new without overwriting nodes that are still in use.  
+\section{Implementation Solutions}
+In systems the greatest implementation solution that I have found to help solve all of my problems is to start with a picture. Meaning that when implementation problems occurred such as not fully understanding how the bitmap would interact with the arena data structures once a picture was drawn further ideas and tactics could be understood and then implemented. Not all of the ideas that are gathered from a picture work or are efficient, but it was a clear way of understanding the data structures. As for allocation tactics that would be used to reclaim memory with instructions such as placement new the tactic of free was to be changed to understand how much the free function will impact performance. Namely this meaning that free would not free any memory back to the OS but would reset an arena back to be completely cleared of all data and was ready to be used by the program. 
+
 
 
 \section{API}
@@ -196,7 +190,8 @@ Further optimizations were implemented in iteration 1 in order to re-run test an
  Run 5& 4.2827  & 4.279\\
  \hline
 \end{tabular}
- The Following Tables Persistent Allocation is 10^-6 Seconds and Hoard is 10^-7\\
+
+The Following Tables Persistent Allocation is 10^-6 Seconds and Hoard is 10^-7\\
 
  \\
  \includegraphics[width=8cm]{HoardGraph2.png}
